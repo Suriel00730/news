@@ -3,6 +3,8 @@ import Header from './components/Header';
 import Formulario from './components/Formulario';
 import ListadoNoticias from './components/ListadoNoticias';
 
+import axios from 'axios';
+
 function App() {
 
   // Definir la categoria y noticias
@@ -13,10 +15,11 @@ function App() {
     const consultarAPI = async () => {
       const url = `https://newsapi.org/v2/top-headlines?country=us&category=${categoria}&apiKey=9256941051324d39961d4b46f778025d`;
 
-      const respuesta = await fetch(url);
-      const noticias = await respuesta.json();
+      // const respuesta = await fetch(url);
+      // const noticias = await respuesta.json();
+      const respuesta = await axios.get(url);
 
-      guardarNoticias(noticias.articles);
+      guardarNoticias(respuesta.data.articles);
     }
     consultarAPI();
   }, [categoria]);
